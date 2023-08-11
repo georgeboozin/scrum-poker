@@ -11,53 +11,87 @@ interface User {
   name: string;
 }
 
-export function createSetHands(hands: Hand[]) {
+interface SetHands {
+  event: HostEvents.SetHands;
+  payload: {
+    hands: Hand[];
+  };
+}
+
+export function createSetHands(hands: Hand[]): SetHands {
   return {
-    event: HostEvents.SetHands as HostEvents.SetHands,
+    event: HostEvents.SetHands,
     payload: {
       hands,
     },
   };
 }
 
-export function createAddUser(user: User) {
+interface AddUser {
+  event: HostEvents.AddUser;
+  payload: {
+    user: User;
+  };
+}
+
+export function createAddUser(user: User): AddUser {
   return {
-    event: HostEvents.AddUser as HostEvents.AddUser,
+    event: HostEvents.AddUser,
     payload: {
       user,
     },
   };
 }
 
-export function createChangeHand(hand: Hand) {
+interface ChangeHand {
+  event: HostEvents.ChangeHand;
+  payload: {
+    hand: Hand;
+  };
+}
+
+export function createChangeHand(hand: Hand): ChangeHand {
   return {
-    event: HostEvents.ChangeHand as HostEvents.ChangeHand,
+    event: HostEvents.ChangeHand,
     payload: {
       hand,
     },
   };
 }
 
-export function createRemoveHand(handId: string) {
+interface RemoveHand {
+  event: HostEvents.RemoveHand;
+  payload: {
+    handId: string;
+  };
+}
+
+export function createRemoveHand(handId: string): RemoveHand {
   return {
-    event: HostEvents.RemoveHand as HostEvents.RemoveHand,
+    event: HostEvents.RemoveHand,
     payload: {
       handId,
     },
   };
 }
 
-export function createRevealCards() {
+interface RevealCards {
+  event: HostEvents.RevealCards;
+}
+
+export function createRevealCards(): RevealCards {
   return {
-    event: HostEvents.RevealCards as HostEvents.RevealCards,
-    payload: {},
+    event: HostEvents.RevealCards,
   };
 }
 
-export function createResetVoting() {
+interface ResetVoting {
+  event: HostEvents.ResetVoting;
+}
+
+export function createResetVoting(): ResetVoting {
   return {
-    event: HostEvents.ResetVoting as HostEvents.ResetVoting,
-    payload: {},
+    event: HostEvents.ResetVoting,
   };
 }
 
