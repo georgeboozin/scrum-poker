@@ -1,11 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useAppContext } from "@/contexts/App";
-import { PeerManager } from "@/services/PeerManager";
+import { HostEvents, UserEvents } from "@/constants";
 import {
   Hand,
-  HostEvents,
-  UserEvents,
   createAddUser,
   createChangeHand,
   createRemoveHand,
@@ -14,9 +12,8 @@ import {
   createSelectCard,
   createRevealCards,
   createResetVoting,
-} from "@/services/event-creators";
+} from "@/helpers/event-creators";
 
-import { Postman } from "@/services/Postman";
 import { formatHands } from "./Room.utils";
 
 type Data =
@@ -30,9 +27,20 @@ type Data =
   | ReturnType<typeof createSetName>;
 
 export function useRoom() {
+  const navigate = useNavigate();
   const { roomId } = useParams();
   const shouldAddPeerHanlders = useRef(true);
-  const { user } = useAppContext();
+  const {
+    user,
+    connections,
+    onConnection,
+    onConnectionOpen,
+    onConnectionClose,
+    onConnectionData,
+    send,
+    broadcast,
+    connect,
+  } = useAppContext();
   const {
     hands,
     addHand,
@@ -52,10 +60,8 @@ export function useRoom() {
   mutableState.current.hands = hands;
 
   const hostRoom = useCallback(() => {
-    const peerManager = PeerManager.Instance;
-    peerManager.onConnection((connection) => {
-      const postman = new Postman(connection.peer);
-      peerManager.onOpenConnection(connection.peer, () => {
+    onConnection((connection) => {
+      onConnectionOpen(connection.peer, () => {
         const id = String(roomId);
         const newHands = formatHands(
           {
@@ -67,16 +73,16 @@ export function useRoom() {
         );
         if (newHands.length !== 0) {
           const event = createSetHands(newHands);
-          postman.send(event);
+          send(connection.peer, event);
         }
       });
-      peerManager.onCloseConnection(connection.peer, () => {
+      onConnectionClose(connection.peer, () => {
         const id = connection.peer;
         removeHand(id);
         const event = createRemoveHand(id);
-        postman.broadcast(event);
+        broadcast(event, [connection.peer]);
       });
-      peerManager.onData<Data>(connection.peer, (data) => {
+      onConnectionData<Data>(connection.peer, (data) => {
         if (data.event === UserEvents.SetName) {
           addHand({
             id: connection.peer,
@@ -86,7 +92,7 @@ export function useRoom() {
             id: connection.peer,
             name: data.payload.name,
           });
-          postman.broadcast(event);
+          broadcast(event, [connection.peer]);
         }
         if (data.event === UserEvents.SelectCard) {
           const id = connection.peer;
@@ -96,85 +102,84 @@ export function useRoom() {
             name: data.payload.name,
             value: data.payload.value,
           });
-          postman.broadcast(event);
+          broadcast(event, [connection.peer]);
         }
       });
     });
   }, []);
 
   const joinRoom = useCallback((roomId: string) => {
-    const peerManager = PeerManager.Instance;
+    const connection = connect(roomId);
+    if (connection) {
+      onConnectionOpen(connection.peer, () => {
+        const event = createSetName(String(user.name));
+        send(connection.peer, event);
+      });
 
-    const connection = peerManager.connect(roomId);
-    const postman = new Postman(connection.peer);
-    peerManager.onOpenConnection(connection.peer, () => {
-      const event = createSetName(String(user.name));
-      postman.send(event);
-    });
+      onConnectionClose(connection.peer, () => {
+        navigate("/");
+      });
 
-    peerManager.onData<Data>(connection.peer, (data) => {
-      if (data.event === HostEvents.SetHands) {
-        setHands(data.payload.hands);
-      }
+      onConnectionData<Data>(connection.peer, (data) => {
+        if (data.event === HostEvents.SetHands) {
+          setHands(data.payload.hands);
+        }
 
-      if (data.event === HostEvents.AddUser) {
-        addHand(data.payload.user);
-      }
+        if (data.event === HostEvents.AddUser) {
+          addHand(data.payload.user);
+        }
 
-      if (data.event === HostEvents.ChangeHand) {
-        changeHandValue(data.payload.hand.id, data.payload.hand.value ?? null);
-      }
-      if (data.event === HostEvents.RevealCards) {
-        setIsRevealed(true);
-      }
+        if (data.event === HostEvents.ChangeHand) {
+          changeHandValue(
+            data.payload.hand.id,
+            data.payload.hand.value ?? null
+          );
+        }
+        if (data.event === HostEvents.RevealCards) {
+          setIsRevealed(true);
+        }
 
-      if (data.event === HostEvents.ResetVoting) {
-        resetHands();
-        setIsRevealed(false);
-      }
-      if (data.event === HostEvents.RemoveHand) {
-        removeHand(data.payload.handId);
-      }
-    });
+        if (data.event === HostEvents.ResetVoting) {
+          resetHands();
+          setIsRevealed(false);
+        }
+        if (data.event === HostEvents.RemoveHand) {
+          removeHand(data.payload.handId);
+        }
+      });
+    }
   }, []);
 
   const handleSelectUserCard = useCallback(
     (value: string | null) => {
-      const peerManager = PeerManager.Instance;
-      const connection = Object.values(peerManager.connections)[0];
-      const postman = new Postman(connection.peer);
-
+      const [connection] = Object.values(connections.current);
       const event = createSelectCard({ name: String(user.name), value });
-
-      postman.send(event);
+      send(connection.peer, event);
     },
     [user]
   );
 
   const handleSelectHostCard = useCallback(
     (value: string | null) => {
-      const postman = new Postman();
       const event = createChangeHand({
         id: String(roomId),
         name: String(user.name),
         value,
       });
       console.log("event", event);
-      postman.broadcast(event);
+      broadcast(event);
     },
     [roomId, user]
   );
 
   const handleReveal = useCallback(() => {
-    const postman = new Postman();
     const event = createRevealCards();
-    postman.broadcast(event);
+    broadcast(event);
   }, []);
 
   const handleNewVoting = useCallback(() => {
-    const postman = new Postman();
     const event = createResetVoting();
-    postman.broadcast(event);
+    broadcast(event);
     resetHands();
   }, [resetHands]);
 

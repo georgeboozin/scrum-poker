@@ -1,4 +1,4 @@
-import { Hand } from "@/services/event-creators";
+import { Hand } from "@/helpers/event-creators";
 
 export function formatHands(hostHand: Hand, hands: Hand[]) {
   const newHands = [hostHand];
@@ -16,28 +16,28 @@ const DOWN = [4, 6, 8, 10];
 const LEFT = [2];
 const RIGHT = [3];
 
-export function fillRows(hands: Hand[]) {
-  const topRow: Hand[] = [];
-  const rightRow: Hand[] = [];
-  const bottomRow: Hand[] = [];
-  const leftRow: Hand[] = [];
+export function fillSeats(hands: Hand[]) {
+  const top: Hand[] = [];
+  const right: Hand[] = [];
+  const bottom: Hand[] = [];
+  const left: Hand[] = [];
 
   hands.forEach((hand, index) => {
     if (UP.includes(index)) {
-      topRow.push(hand);
+      top.push(hand);
     }
     if (RIGHT.includes(index)) {
-      rightRow.push(hand);
+      right.push(hand);
     }
     if (DOWN.includes(index)) {
-      bottomRow.push(hand);
+      bottom.push(hand);
     }
     if (LEFT.includes(index)) {
-      leftRow.push(hand);
+      left.push(hand);
     }
   });
 
-  return { topRow, rightRow, bottomRow, leftRow };
+  return { top, right, bottom, left };
 }
 
 export function calcVotes(hands: Hand[], user: Hand | null) {

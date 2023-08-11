@@ -12,7 +12,7 @@ interface Props {
   sx?: SxProps;
 }
 
-export function SeatRow({ hands, isRevealed, sx }: Props) {
+export function Seats({ hands, isRevealed, sx }: Props) {
   return (
     <Box
       sx={{

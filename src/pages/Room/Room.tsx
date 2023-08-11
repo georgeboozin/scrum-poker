@@ -1,11 +1,11 @@
 import Box from "@mui/material/Box";
-import { Table } from "@/components/Table";
 import { useAppContext } from "@/contexts/App";
-import { SeatRow } from "./components/SeatRow";
+import { Table } from "@/components/Table";
+import { Seats } from "@/components/Seats";
 import { CardSelector } from "./components/CardSelector";
 import { VoteResult } from "./components/VoteResult";
 import { useRoom } from "./Room.hooks";
-import { fillRows, calcVotes } from "./Room.utils";
+import { fillSeats, calcVotes } from "./Room.utils";
 
 export function Room() {
   const {
@@ -21,7 +21,7 @@ export function Room() {
     isRevealed,
     setIsRevealed,
   } = useRoom();
-  const { topRow, rightRow, bottomRow, leftRow } = fillRows(hands);
+  const { top, right, bottom, left } = fillSeats(hands);
   const value = userHand?.value;
   const isSelected = Boolean(userHand?.value);
 
@@ -34,8 +34,8 @@ export function Room() {
 
   return (
     <Box>
-      <SeatRow
-        hands={topRow}
+      <Seats
+        hands={top}
         isRevealed={isRevealed}
         sx={{
           width: "80%",
@@ -52,8 +52,8 @@ export function Room() {
           mt: 2,
         }}
       >
-        <SeatRow
-          hands={leftRow}
+        <Seats
+          hands={left}
           isRevealed={isRevealed}
           sx={{
             mr: 1,
@@ -72,16 +72,16 @@ export function Room() {
             handleNewVoting();
           }}
         />
-        <SeatRow
+        <Seats
           isRevealed={isRevealed}
-          hands={rightRow}
+          hands={right}
           sx={{
             ml: 1,
           }}
         />
       </Box>
-      <SeatRow
-        hands={[user, ...bottomRow]}
+      <Seats
+        hands={[user, ...bottom]}
         isRevealed={isRevealed}
         sx={{
           width: "80%",
@@ -102,10 +102,11 @@ export function Room() {
         {!isRevealed && (
           <CardSelector
             value={value}
-            onSelect={(v: string) => {
-              selectCard(v === value ? null : v);
+            onSelect={(cardValue: string) => {
+              selectCard(cardValue === value ? null : cardValue);
               setUserHand(
-                (prev) => prev && { ...prev, name: userHand?.name, value: v }
+                (prev) =>
+                  prev && { ...prev, name: userHand?.name, value: cardValue }
               );
             }}
           />

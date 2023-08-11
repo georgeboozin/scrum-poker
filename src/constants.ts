@@ -19,3 +19,17 @@ export const PEER_JS_SERVER = {
   path: "/",
   debug: 0, // 0 - disable logs, 1 - only errors, 2 - errors and warnings, 3 - all logs
 };
+
+export enum HostEvents {
+  SetHands = "SET_HANDS",
+  AddUser = "ADD_USER",
+  ChangeHand = "CHANGE_HAND",
+  RevealCards = "REVEAL_CARDS",
+  ResetVoting = "RESET_VOTING",
+  RemoveHand = "REMOVE_HAND",
+}
+
+export enum UserEvents {
+  SetName = "SET_NAME",
+  SelectCard = "SELECT_CARD",
+}

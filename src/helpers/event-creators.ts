@@ -1,21 +1,14 @@
-export enum HostEvents {
-  SetHands = "SET_HANDS",
-  AddUser = "ADD_USER",
-  ChangeHand = "CHANGE_HAND",
-  RevealCards = "REVEAL_CARDS",
-  ResetVoting = "RESET_VOTING",
-  RemoveHand = "REMOVE_HAND",
-}
-
-export enum UserEvents {
-  SetName = "SET_NAME",
-  SelectCard = "SELECT_CARD",
-}
+import { HostEvents, UserEvents } from "@/constants";
 
 export interface Hand {
   id: string;
   name: string;
   value?: string | null;
+}
+
+interface User {
+  id: string;
+  name: string;
 }
 
 export function createSetHands(hands: Hand[]) {
@@ -25,11 +18,6 @@ export function createSetHands(hands: Hand[]) {
       hands,
     },
   };
-}
-
-interface User {
-  id: string;
-  name: string;
 }
 
 export function createAddUser(user: User) {
