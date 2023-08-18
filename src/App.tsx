@@ -1,12 +1,12 @@
 import { RouterProvider } from "react-router-dom";
-import { AppProvider } from "@/contexts/App";
+import { Provider } from "@/services/store";
 import { router } from "@/router";
 import "./App.css";
 
 export function App() {
   return (
-    <AppProvider>
+    <Provider>
       <RouterProvider router={router} />
-    </AppProvider>
+    </Provider>
   );
 }

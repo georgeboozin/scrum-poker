@@ -6,8 +6,8 @@ export interface Props {
   isSelected: boolean;
   isRevealed: boolean;
   isHost: boolean;
-  onRevealCards: () => void;
-  onNewVoting: () => void;
+  onRevealCards?: () => void;
+  onNewVoting?: () => void;
 }
 
 export function TableContent({
@@ -36,7 +36,7 @@ export function TableContent({
   if (isSelected && !isHost) {
     return (
       <Typography color={grey[600]} variant="caption">
-        Wait participants
+        Wait teammates
       </Typography>
     );
   }

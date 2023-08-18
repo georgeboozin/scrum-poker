@@ -1,10 +1,5 @@
 import { useState } from "react";
-
-interface User {
-  id: string;
-  name: string;
-  isHost: boolean;
-}
+import { User } from "@/domain/user";
 
 export function useUser() {
   const [user, setUser] = useState<User>({

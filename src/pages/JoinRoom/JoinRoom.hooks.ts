@@ -2,12 +2,13 @@ import { useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Peer } from "peerjs";
 import { PEER_JS_SERVER } from "@/constants";
-import { useAppContext } from "@/contexts/App";
+import { useStore } from "@/services/store";
+import { peerManager } from "@/services/PeerManager";
 
 export function useForm() {
   const { roomId } = useParams();
   const navigate = useNavigate();
-  const { setUser, setPeerManager, onOpen } = useAppContext();
+  const { updateUser } = useStore();
   const [values, setValues] = useState({
     name: "",
   });
@@ -24,10 +25,10 @@ export function useForm() {
     (e: React.SyntheticEvent) => {
       e.preventDefault();
       const peer = new Peer(PEER_JS_SERVER);
-      setPeerManager(peer);
-      onOpen((id) => {
+      peerManager.setPeer(peer);
+      peerManager.onOpen((id) => {
         console.log("Participant registered", id);
-        setUser({
+        updateUser({
           id,
           name: values.name,
           isHost: false,
@@ -35,7 +36,7 @@ export function useForm() {
         navigate(`/rooms/${roomId}`);
       });
     },
-    [setPeerManager, onOpen, setUser, values.name, navigate, roomId]
+    [updateUser, values.name, navigate, roomId]
   );
 
   return {

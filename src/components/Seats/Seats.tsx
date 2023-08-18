@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import { SxProps } from "@mui/material";
-import { PokerHand } from "@/components/PokerHand";
+import { Hand } from "@/components/Hand";
 
 interface Props {
   hands: {
@@ -22,7 +22,7 @@ export function Seats({ hands, isRevealed, sx }: Props) {
       }}
     >
       {hands.map(({ name, value, isCurrentUser }) => (
-        <PokerHand
+        <Hand
           key={name}
           name={name}
           value={value}

@@ -9,7 +9,7 @@ import Snackbar from "@mui/material/Snackbar";
 import { useLayout } from "./Layout.hooks";
 
 export function Main() {
-  const { isRoom, isOpenNotification, handleInvite, handleCloseNotification } =
+  const { isRoom, handleInvite, handleCloseNotification, notification } =
     useLayout();
 
   return (
@@ -46,10 +46,10 @@ export function Main() {
         <Outlet />
       </Container>
       <Snackbar
-        open={isOpenNotification}
+        open={notification.isOpen}
         onClose={handleCloseNotification}
-        autoHideDuration={5000}
-        message="Invitation link copied"
+        autoHideDuration={2000}
+        message={notification.message}
       />
     </>
   );

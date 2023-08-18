@@ -21,7 +21,7 @@ interface Props {
   isRevealed?: boolean;
 }
 
-export function PokerHand({ name, isCurrentUser, value, isRevealed }: Props) {
+export function Hand({ name, isCurrentUser, value, isRevealed }: Props) {
   const borderColor = isRevealed && Boolean(value) ? blue[400] : grey[300];
   const backgroundColor = getBackgroundColor(Boolean(value), isRevealed);
 

@@ -3,20 +3,38 @@ import { useLocation, useParams } from "react-router-dom";
 
 export function useLayout() {
   const { pathname } = useLocation();
-  const [isOpenNotification, setIsOpenNotification] = useState(false);
+  const [notification, setNotification] = useState({
+    message: "",
+    isOpen: false,
+  });
   const { roomId } = useParams();
   const isRoom =
     pathname === `/rooms/${roomId}` || pathname === `/rooms/${roomId}/host`;
 
-  const handleInvite = useCallback(() => {
+  const handleInvite = useCallback(async () => {
     const url = `${location.origin}/rooms/${roomId}/join`;
-    navigator.clipboard.writeText(url);
-    setIsOpenNotification(true);
+    try {
+      await navigator.clipboard.writeText(url);
+      setNotification({
+        message: "Invitation link copied",
+        isOpen: true,
+      });
+    } catch (e) {
+      setNotification({
+        message: "Invitation link wasn't copy",
+        isOpen: true,
+      });
+    }
   }, [roomId]);
 
   const handleCloseNotification = useCallback(() => {
-    setIsOpenNotification(false);
+    setNotification((prev) => ({ ...prev, isOpen: false }));
   }, []);
 
-  return { isRoom, isOpenNotification, handleInvite, handleCloseNotification };
+  return {
+    isRoom,
+    handleInvite,
+    handleCloseNotification,
+    notification,
+  };
 }

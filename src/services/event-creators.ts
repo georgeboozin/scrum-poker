@@ -1,26 +1,21 @@
+import { Hand } from "@/domain/hand";
 import { HostEvents, UserEvents } from "@/constants";
-
-export interface Hand {
-  id: string;
-  name: string;
-  value?: string | null;
-}
 
 interface User {
   id: string;
   name: string;
 }
 
-interface SetHands {
-  event: HostEvents.SetHands;
+interface UpdateHands {
+  event: HostEvents.UpdateHands;
   payload: {
     hands: Hand[];
   };
 }
 
-export function createSetHands(hands: Hand[]): SetHands {
+export function createUpdateHands(hands: Hand[]): UpdateHands {
   return {
-    event: HostEvents.SetHands,
+    event: HostEvents.UpdateHands,
     payload: {
       hands,
     },

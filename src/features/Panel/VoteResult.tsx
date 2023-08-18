@@ -4,23 +4,25 @@ import { Card } from "@/components/Card";
 import { CARDS_SET } from "@/constants";
 
 function calcAverage(votes: string[]) {
-  const witout = votes
+  const formattedVotes = votes
     .filter((value) => value !== "?")
     .map((value) => Number(value));
 
-  const average = witout.reduce((acc, cur) => acc + cur, 0) / witout.length;
-  const fibSequence = CARDS_SET.filter((value) => value !== "?").map((value) =>
-    Number(value)
-  );
-  const diffFib = fibSequence.reduce((acc, cur) => {
-    const diff = cur - average;
-    if (Math.abs(diff) < Math.abs(acc)) {
-      return diff;
-    }
-    return acc;
-  }, fibSequence[fibSequence.length - 1]);
+  const average =
+    formattedVotes.reduce((acc, cur) => acc + cur, 0) / formattedVotes.length;
+  // const fibSequence = CARDS_SET.filter((value) => value !== "?").map((value) =>
+  //   Number(value)
+  // );
+  // const diffFib = fibSequence.reduce((acc, cur) => {
+  //   const diff = cur - average;
+  //   if (Math.abs(diff) < Math.abs(acc)) {
+  //     return diff;
+  //   }
+  //   return acc;
+  // }, fibSequence[fibSequence.length - 1]);
 
-  return average + diffFib;
+  // return average + diffFib;
+  return Math.round(average * 100) / 100;
 }
 
 function groupVotes(votes: string[]) {

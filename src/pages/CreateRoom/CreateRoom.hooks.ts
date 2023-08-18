@@ -1,8 +1,9 @@
 import { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Peer } from "peerjs";
-import { useAppContext } from "@/contexts/App";
+import { useStore } from "@/services/store";
 import { PEER_JS_SERVER } from "@/constants";
+import { peerManager } from "@/services/PeerManager";
 
 export function useForm() {
   const [name, setName] = useState("");
@@ -22,16 +23,15 @@ export function useForm() {
 
 export function useCreateRoom() {
   const navigate = useNavigate();
-  const { setUser, setPeerManager, onOpen, onError, closeConnections } =
-    useAppContext();
+  const { updateUser } = useStore();
 
   const createRoom = useCallback(
     (name: string) => {
       const peer = new Peer(PEER_JS_SERVER);
-      setPeerManager(peer);
-      onOpen((id) => {
+      peerManager.setPeer(peer);
+      peerManager.onOpen((id) => {
         console.log("Host registered", id);
-        setUser({
+        updateUser({
           id,
           name,
           isHost: true,
@@ -39,15 +39,15 @@ export function useCreateRoom() {
         navigate(`/rooms/${id}`);
       });
 
-      onError((error) => {
+      peerManager.onError((error) => {
         console.log("error", error);
       });
     },
-    [navigate, onError, onOpen, setPeerManager, setUser]
+    [navigate, updateUser]
   );
 
   useEffect(() => {
-    closeConnections();
+    peerManager.closeConnections();
   }, []);
 
   return { createRoom };

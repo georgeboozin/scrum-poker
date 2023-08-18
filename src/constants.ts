@@ -21,8 +21,8 @@ export const PEER_JS_SERVER = {
 };
 
 export enum HostEvents {
-  SetHands = "SET_HANDS",
-  AddUser = "ADD_USER",
+  UpdateHands = "UPDATE_HANDS", // ADD_HANDS? UPDATE_HANDS? CHANGE_HANDS
+  AddUser = "ADD_USER", // ADD_HAND?
   ChangeHand = "CHANGE_HAND",
   RevealCards = "REVEAL_CARDS",
   ResetVoting = "RESET_VOTING",
@@ -30,6 +30,6 @@ export enum HostEvents {
 }
 
 export enum UserEvents {
-  SetName = "SET_NAME",
-  SelectCard = "SELECT_CARD",
+  SetName = "SET_NAME", // UPDATE_USER UPDATE_USER_NAME CHANGE_USER
+  SelectCard = "SELECT_CARD", // UPDATE_HAND_VALUE CHANGE_HAND_VALUE
 }
