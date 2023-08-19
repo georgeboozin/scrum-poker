@@ -1,13 +1,14 @@
 import { useCallback } from "react";
+import { resetHands } from "@/shared/domain/hand";
 import { useHands } from "@/shared/lib/services/hands";
 import { HandsService } from "@/shared/lib/use-cases/ports";
 
 export function useResetVoting() {
-  const { changIsRevealed, resetHands }: HandsService = useHands();
+  const { changeIsRevealed, updateHands }: HandsService = useHands();
 
   const handleResetVoting = useCallback(() => {
-    resetHands();
-    changIsRevealed(false);
+    updateHands((prev) => resetHands(prev));
+    changeIsRevealed(false);
   }, []);
 
   return { resetVoting: handleResetVoting };

@@ -5,12 +5,12 @@ import { useHands } from "@/shared/lib/services/hands";
 import { HandsService } from "@/shared/lib/use-cases/ports";
 
 export function useRevealHands() {
-  const { changIsRevealed }: HandsService = useHands();
+  const { changeIsRevealed }: HandsService = useHands();
 
   const handleRevealHands = useCallback(() => {
     const event = createRevealCards();
     peerManager.broadcast(event);
-    changIsRevealed(true);
+    changeIsRevealed(true);
   }, []);
 
   return { revealHands: handleRevealHands };

@@ -5,12 +5,9 @@ import { User } from "@/shared/domain/user";
 export interface HandsService {
   hands: Hand[];
   isRevealed: boolean;
-  addHand: (hand: Hand) => void;
-  removeHand: (handId: string) => void;
-  resetHands: () => void;
-  updateHands: (hands: Hand[]) => void;
-  changeHandValue: (handId: string, value: string | null) => void;
-  changIsRevealed: (isRevealed: boolean) => void;
+  updateHands(hands: Hand[]): void;
+  updateHands(callback: (prev: Hand[]) => Hand[]): void;
+  changeIsRevealed: (isRevealed: boolean) => void;
 }
 
 export interface StoreService {

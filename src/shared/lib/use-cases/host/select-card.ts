@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { useParams } from "react-router-dom";
+import { changeHandValue } from "@/shared/domain/hand";
 import { useStore } from "@/shared/lib/services/store";
 import { createChangeHand } from "@/shared/lib/services/event-creators";
 import { peerManager } from "@/shared/lib/services/PeerManager";
@@ -9,7 +10,7 @@ import { HandsService } from "@/shared/lib/use-cases/ports";
 export function useSelectCard() {
   const { roomId } = useParams();
   const { user } = useStore();
-  const { changeHandValue }: HandsService = useHands();
+  const { updateHands }: HandsService = useHands();
 
   const handleSelectCard = useCallback(
     (value: string | null) => {
@@ -19,9 +20,9 @@ export function useSelectCard() {
         value,
       });
       peerManager.broadcast(event);
-      changeHandValue(user.id, value);
+      updateHands((prev) => changeHandValue(prev, user.id, value));
     },
-    [changeHandValue, roomId, user]
+    [updateHands, roomId, user]
   );
 
   return { handleSelectCard };
