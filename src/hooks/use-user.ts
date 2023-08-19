@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { User } from "@/domain/user";
+import { User } from "@/shared/domain/user";
 
 export function useUser() {
   const [user, setUser] = useState<User>({

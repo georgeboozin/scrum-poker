@@ -1,4 +1,4 @@
-import { Hand } from "@/domain/hand";
+import { Hand } from "@/shared/domain/hand";
 
 export function calcVotes(hands: Hand[]) {
   return hands.reduce((acc, hand) => {

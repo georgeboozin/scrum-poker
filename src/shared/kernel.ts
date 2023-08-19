@@ -1,4 +1,4 @@
-import { Hand } from "@/domain/hand";
+import { Hand } from "@/shared/domain/hand";
 import { HostEvents, UserEvents } from "@/constants";
 
 interface User {

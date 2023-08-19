@@ -1,7 +1,7 @@
 import { useCallback, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useStore } from "@/services/store";
-import { Hand } from "@/domain/hand";
+import { Hand } from "@/shared/domain/hand";
 import {
   createSelectCard,
   createChangeHand,

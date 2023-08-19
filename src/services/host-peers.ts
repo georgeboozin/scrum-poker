@@ -1,5 +1,5 @@
 import { useCallback, useRef } from "react";
-import { Hand } from "@/domain/hand";
+import { Hand } from "@/shared/domain/hand";
 import { UserEvents } from "@/constants";
 import {
   createAddUser,

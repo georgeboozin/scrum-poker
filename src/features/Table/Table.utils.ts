@@ -1,4 +1,4 @@
-import { Hand } from "@/domain/hand";
+import { Hand } from "@/shared/domain/hand";
 
 // const UP = [0, 1, 5, 7, 9]; // [1,4,6,8]
 // const DOWN = [4, 6, 8, 10]; // [0,5,7,9]

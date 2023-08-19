@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import { SxProps } from "@mui/material";
-import { Hand } from "@/components/Hand";
+import { Hand } from "@/shared/ui/Hand";
 
 interface Props {
   hands: {

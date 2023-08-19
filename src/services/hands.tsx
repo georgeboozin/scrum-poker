@@ -6,7 +6,7 @@ import {
   removeHand,
   changeHandValue,
   resetHands,
-} from "@/domain/hand";
+} from "@/shared/domain/hand";
 import { useStore } from "@/services/store";
 import { HandsService } from "@/application/ports";
 

@@ -1,6 +1,6 @@
 import { DataConnection, Peer } from "peerjs";
-import { Hand } from "@/domain/hand";
-import { User } from "@/domain/user";
+import { Hand } from "@/shared/domain/hand";
+import { User } from "@/shared/domain/user";
 
 export interface HandsService {
   hands: Hand[];

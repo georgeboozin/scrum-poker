@@ -1,6 +1,6 @@
 import { createContext, useState, useContext } from "react";
 import type { ReactNode } from "react";
-import { User } from "@/domain/user";
+import { User } from "@/shared/domain/user";
 import { StoreService } from "@/application/ports";
 
 function useUser() {

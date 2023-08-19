@@ -1,9 +1,9 @@
 import Box from "@mui/material/Box";
 import { useStore } from "@/services/store";
-import { Table as SharedTable } from "@/components/Table";
-import { Seats } from "@/components/Seats";
+import { Table as SharedTable } from "@/shared/ui/Table";
+import { Seats } from "@/shared/ui/Seats";
 import { fillSeats } from "./Table.utils";
-import { Hand } from "@/domain/hand";
+import { Hand } from "@/shared/domain/hand";
 
 interface Props {
   hands: Hand[];
