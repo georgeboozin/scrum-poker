@@ -7,8 +7,8 @@ import {
   changeHandValue,
   resetHands,
 } from "@/shared/domain/hand";
-import { useStore } from "@/services/store";
-import { HandsService } from "@/application/ports";
+import { useStore } from "@/shared/lib/services/store";
+import { HandsService } from "@/shared/lib/use-cases/ports";
 
 export const HandsContext = createContext<HandsService | null>(null);
 

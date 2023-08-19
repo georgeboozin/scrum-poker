@@ -1,14 +1,14 @@
 import { useEffect, useRef } from "react";
 import Box from "@mui/material/Box";
-import { useHands } from "@/services/hands";
-import { Table } from "@/features/Table";
-import { Panel } from "@/features/Panel";
+import { useHands } from "@/shared/lib/services/hands";
+import { Table } from "@/features/table";
+import { Panel } from "@/features/panel";
 import {
   useHostSelectCard,
   useHostRevealHands,
   useHostResetVoting,
-} from "@/application/actions";
-import { useHostPeers } from "@/services/host-peers";
+} from "@/shared/lib/use-cases/actions";
+import { useHostPeers } from "@/shared/lib/services/host-peers";
 
 export function HostRoom() {
   const { hands, isRevealed } = useHands();

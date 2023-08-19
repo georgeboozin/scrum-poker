@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useStore } from "@/services/store";
+import { useStore } from "@/shared/lib/services/store";
 import { HostEvents } from "@/constants";
-import { createSetName } from "@/services/event-creators";
-import { peerManager } from "@/services/PeerManager";
+import { createSetName } from "@/shared/lib/services/event-creators";
+import { peerManager } from "@/shared/lib/services/PeerManager";
 import { DataConnection } from "peerjs";
 import type { EventPayload } from "@/shared/kernel";
 import {
@@ -13,7 +13,7 @@ import {
   useChangeHandValue,
   useTeammateRevealHands,
   useTeammateResetVoting,
-} from "@/application/actions";
+} from "@/shared/lib/use-cases/actions";
 
 type Data = EventPayload;
 

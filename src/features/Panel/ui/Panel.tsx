@@ -1,6 +1,6 @@
 import { CardSelector } from "./CardSelector";
 import { VoteResult } from "./VoteResult";
-import { calcVotes } from "./Panel.utils";
+import { calcVotes } from "../lib/calc-votes";
 import { Hand } from "@/shared/domain/hand";
 
 interface Props {

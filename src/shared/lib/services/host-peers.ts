@@ -6,16 +6,16 @@ import {
   createChangeHand,
   createRemoveHand,
   createUpdateHands,
-} from "@/services/event-creators";
-import { peerManager } from "@/services/PeerManager";
+} from "@/shared/lib/services/event-creators";
+import { peerManager } from "@/shared/lib/services/PeerManager";
 import { DataConnection } from "peerjs";
-import { useHands } from "@/services/hands";
+import { useHands } from "@/shared/lib/services/hands";
 import type { EventPayload } from "@/shared/kernel";
 import {
   useRemoveHand,
   useAddHand,
   useChangeHandValue,
-} from "@/application/actions";
+} from "@/shared/lib/use-cases/actions";
 
 type Data = EventPayload;
 

@@ -6,11 +6,30 @@ import Typography from "@mui/material/Typography";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import IconButton from "@mui/material/IconButton";
 import Snackbar from "@mui/material/Snackbar";
-import { useLayout } from "./Layout.hooks";
+import { useNotification } from "../lib/notification";
+import { useCopyLink } from "../lib/copy-link";
+import { useMatchPage } from "../lib/match-page";
+import { useCallback } from "react";
 
-export function Main() {
-  const { isRoom, handleInvite, handleCloseNotification, notification } =
-    useLayout();
+export function Layout() {
+  const { notification, handleCloseNotification, updateNotification } =
+    useNotification();
+  const { copyLink } = useCopyLink();
+  const { isRoom } = useMatchPage();
+  const handleClick = useCallback(async () => {
+    try {
+      await copyLink();
+      updateNotification({
+        message: "Invitation link copied",
+        isOpen: true,
+      });
+    } catch (e) {
+      updateNotification({
+        message: "Invitation link wasn't copy",
+        isOpen: true,
+      });
+    }
+  }, [updateNotification, copyLink]);
 
   return (
     <>
@@ -31,7 +50,7 @@ export function Main() {
             </Link>
             {isRoom && (
               <IconButton
-                onClick={handleInvite}
+                onClick={handleClick}
                 sx={{
                   color: "white",
                 }}

@@ -3,8 +3,8 @@ import { useCallback } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
-import { useCreateRoom } from "@/application/create-room";
-import { useCloseConnections } from "@/application/close-connections";
+import { useCreateRoom } from "@/shared/lib/use-cases/create-room";
+import { useCloseConnections } from "@/shared/lib/use-cases/close-connections";
 import { useForm } from "../lib/form";
 
 export function CreateRoom() {

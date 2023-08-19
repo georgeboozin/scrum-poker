@@ -1,7 +1,7 @@
-import { Provider } from "@/services/hands";
+import { Provider } from "@/shared/lib/services/hands";
 import { HostRoom } from "@/widgets/HostRoom";
 import { TeammateRoom } from "@/widgets/TeammateRoom";
-import { useStore } from "@/services/store";
+import { useStore } from "@/shared/lib/services/store";
 
 export function Room() {
   const { user } = useStore();

@@ -1,16 +1,16 @@
 import { useCallback, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { useStore } from "@/services/store";
+import { useStore } from "@/shared/lib/services/store";
 import { Hand } from "@/shared/domain/hand";
 import {
   createSelectCard,
   createChangeHand,
   createRevealCards,
   createResetVoting,
-} from "@/services/event-creators";
-import { peerManager } from "@/services/PeerManager";
-import { useHands } from "@/services/hands";
-import { HandsService } from "@/application/ports";
+} from "@/shared/lib/services/event-creators";
+import { peerManager } from "@/shared/lib/services/PeerManager";
+import { useHands } from "@/shared/lib/services/hands";
+import { HandsService } from "@/shared/lib/use-cases/ports";
 
 export function useTeammateSelectCard() {
   const { user } = useStore();

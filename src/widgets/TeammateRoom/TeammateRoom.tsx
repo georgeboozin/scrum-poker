@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 import Box from "@mui/material/Box";
-import { Table } from "@/features/Table";
-import { Panel } from "@/features/Panel";
-import { useHands } from "@/services/hands";
-import { useTeammatePeers } from "@/services/teammate-peers";
-import { useTeammateSelectCard } from "@/application/actions";
+import { Table } from "@/features/table";
+import { Panel } from "@/features/panel";
+import { useHands } from "@/shared/lib/services/hands";
+import { useTeammatePeers } from "@/shared/lib/services/teammate-peers";
+import { useTeammateSelectCard } from "@/shared/lib/use-cases/actions";
 
 export function TeammateRoom() {
   const { hands, isRevealed } = useHands();

@@ -1,7 +1,7 @@
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
-import { useJoinRoom } from "@/application/join-room";
+import { useJoinRoom } from "@/shared/lib/use-cases/join-room";
 import { useForm } from "../lib/form";
 
 export function JoinRoom() {

@@ -1,5 +1,5 @@
 import { DataConnection, Peer } from "peerjs";
-import { PeerManagerService } from "@/application/ports";
+import { PeerManagerService } from "@/shared/lib/use-cases/ports";
 
 class PeerManager implements PeerManagerService {
   private peer: Peer | null;

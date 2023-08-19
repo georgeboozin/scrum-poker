@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useStore } from "@/services/store";
-import { peerManager } from "@/services/PeerManager";
+import { useStore } from "@/shared/lib/services/store";
+import { peerManager } from "@/shared/lib/services/PeerManager";
 import { Peer } from "peerjs";
 import { PEER_JS_SERVER } from "@/constants";
 

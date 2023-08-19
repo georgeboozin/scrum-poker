@@ -1,7 +1,7 @@
 import { createContext, useState, useContext } from "react";
 import type { ReactNode } from "react";
 import { User } from "@/shared/domain/user";
-import { StoreService } from "@/application/ports";
+import { StoreService } from "@/shared/lib/use-cases/ports";
 
 function useUser() {
   const [user, setUser] = useState<User>({

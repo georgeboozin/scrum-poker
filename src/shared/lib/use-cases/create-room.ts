@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Peer } from "peerjs";
-import { useStore } from "@/services/store";
+import { useStore } from "@/shared/lib/services/store";
 import { PEER_JS_SERVER } from "@/constants";
-import { peerManager } from "@/services/PeerManager";
+import { peerManager } from "@/shared/lib/services/PeerManager";
 
 export function useCreateRoom() {
   const navigate = useNavigate();
