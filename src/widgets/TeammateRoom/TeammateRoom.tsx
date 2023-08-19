@@ -4,12 +4,12 @@ import { Table } from "@/features/table";
 import { Panel } from "@/features/panel";
 import { useHands } from "@/shared/lib/services/hands";
 import { useTeammatePeers } from "@/shared/lib/services/teammate-peers";
-import { useTeammateSelectCard } from "@/shared/lib/use-cases/actions";
+import { useSelectCard } from "@/shared/lib/use-cases/teammate/select-card";
 
 export function TeammateRoom() {
   const { hands, isRevealed } = useHands();
   const { setup } = useTeammatePeers();
-  const { handleSelectCard } = useTeammateSelectCard();
+  const { handleSelectCard } = useSelectCard();
   const shouldSetupPeer = useRef(true);
 
   useEffect(() => {

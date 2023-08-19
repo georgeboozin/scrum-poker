@@ -11,11 +11,9 @@ import { peerManager } from "@/shared/lib/services/PeerManager";
 import { DataConnection } from "peerjs";
 import { useHands } from "@/shared/lib/services/hands";
 import type { EventPayload } from "@/shared/kernel";
-import {
-  useRemoveHand,
-  useAddHand,
-  useChangeHandValue,
-} from "@/shared/lib/use-cases/actions";
+import { useAddHand } from "@/shared/lib/use-cases/add-hand";
+import { useRemoveHand } from "@/shared/lib/use-cases/remove-hand";
+import { useChangeHandValue } from "@/shared/lib/use-cases/change-hand-value";
 
 type Data = EventPayload;
 

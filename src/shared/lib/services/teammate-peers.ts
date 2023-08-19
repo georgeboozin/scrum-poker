@@ -6,14 +6,12 @@ import { createSetName } from "@/shared/lib/services/event-creators";
 import { peerManager } from "@/shared/lib/services/PeerManager";
 import { DataConnection } from "peerjs";
 import type { EventPayload } from "@/shared/kernel";
-import {
-  useUpdateHands,
-  useAddHand,
-  useRemoveHand,
-  useChangeHandValue,
-  useTeammateRevealHands,
-  useTeammateResetVoting,
-} from "@/shared/lib/use-cases/actions";
+import { useUpdateHands } from "@/shared/lib/use-cases/update-hands";
+import { useAddHand } from "@/shared/lib/use-cases/add-hand";
+import { useRemoveHand } from "@/shared/lib/use-cases/remove-hand";
+import { useChangeHandValue } from "@/shared/lib/use-cases/change-hand-value";
+import { useRevealHands } from "@/shared/lib/use-cases/teammate/reveal-hands";
+import { useResetVoting } from "@/shared/lib/use-cases/teammate/reset-voting";
 
 type Data = EventPayload;
 
@@ -25,8 +23,8 @@ export function useTeammatePeers() {
   const { addHand } = useAddHand();
   const { removeHand } = useRemoveHand();
   const { changeHandValue } = useChangeHandValue();
-  const { revealHands } = useTeammateRevealHands();
-  const { resetVoting } = useTeammateResetVoting();
+  const { revealHands } = useRevealHands();
+  const { resetVoting } = useResetVoting();
 
   const handleConnectionOpen = useCallback((connection: DataConnection) => {
     const event = createSetName(String(user.name));

@@ -3,18 +3,16 @@ import Box from "@mui/material/Box";
 import { useHands } from "@/shared/lib/services/hands";
 import { Table } from "@/features/table";
 import { Panel } from "@/features/panel";
-import {
-  useHostSelectCard,
-  useHostRevealHands,
-  useHostResetVoting,
-} from "@/shared/lib/use-cases/actions";
+import { useSelectCard } from "@/shared/lib/use-cases/host/select-card";
+import { useRevealHands } from "@/shared/lib/use-cases/host/reveal-hands";
+import { useResetVoting } from "@/shared/lib/use-cases/host/reset-voting";
 import { useHostPeers } from "@/shared/lib/services/host-peers";
 
 export function HostRoom() {
   const { hands, isRevealed } = useHands();
-  const { handleSelectCard } = useHostSelectCard();
-  const { revealHands } = useHostRevealHands();
-  const { resetVoting } = useHostResetVoting();
+  const { handleSelectCard } = useSelectCard();
+  const { revealHands } = useRevealHands();
+  const { resetVoting } = useResetVoting();
   const { setup } = useHostPeers();
 
   const shouldSetupPeer = useRef(true);
