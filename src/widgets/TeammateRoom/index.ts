@@ -1,1 +1,0 @@
-export { TeammateRoom } from "./TeammateRoom";
