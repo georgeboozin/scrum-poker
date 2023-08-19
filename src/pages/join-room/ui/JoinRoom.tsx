@@ -1,13 +1,15 @@
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
-import { useForm } from "./JoinRoom.hooks";
+import { useJoinRoom } from "@/application/join-room";
+import { useForm } from "../lib/form";
 
 export function JoinRoom() {
+  const { joinRoom } = useJoinRoom();
   const { values, handleNameChange, handleSubmit } = useForm();
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(({ name }) => joinRoom(name))}>
       <Grid container rowGap={2}>
         <Grid item xs={12}>
           <TextField

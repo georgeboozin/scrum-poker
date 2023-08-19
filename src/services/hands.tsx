@@ -21,6 +21,7 @@ export function Provider({ children }: ProviderProps) {
     user: { id, name },
   } = useStore();
   const [hands, setHands] = useState<Hand[]>([{ id, name }]);
+  const [isRevealed, setIsRevealed] = useState(false);
 
   const handleAddHand = useCallback((hand: Hand) => {
     setHands((prev) => addHand(prev, hand));
@@ -32,6 +33,7 @@ export function Provider({ children }: ProviderProps) {
 
   const handleResetHands = useCallback(() => {
     setHands((prev) => resetHands(prev));
+    setIsRevealed(false);
   }, []);
 
   const handleChangeHandValue = useCallback(
@@ -43,11 +45,13 @@ export function Provider({ children }: ProviderProps) {
 
   const value = {
     hands,
+    isRevealed,
     addHand: handleAddHand,
     removeHand: handleRemoveHand,
     resetHands: handleResetHands,
     updateHands: setHands,
     changeHandValue: handleChangeHandValue,
+    changIsRevealed: setIsRevealed,
   };
 
   return (

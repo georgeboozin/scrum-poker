@@ -13,7 +13,7 @@ interface Props {
 }
 
 export function Table({
-  hands: [userHand, ...hands],
+  hands,
   isRevealed,
   onRevealCards,
   onNewVoting,
@@ -21,12 +21,15 @@ export function Table({
   const {
     user: { isHost },
   } = useStore();
-  const { top, right, bottom, left } = fillSeats(hands);
-  const isSelected = Boolean(userHand?.value);
-
+  const {
+    top,
+    right,
+    bottom: [userHand, ...bottom],
+    left,
+  } = fillSeats(hands);
+  const isSelected = Boolean(userHand.value);
   const user = {
-    name: String(userHand?.name),
-    value: userHand?.value,
+    ...userHand,
     isCurrentUser: true,
   };
 

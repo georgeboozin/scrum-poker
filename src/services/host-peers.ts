@@ -1,6 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useStore } from "@/services/store";
+import { useCallback, useRef } from "react";
 import { Hand } from "@/domain/hand";
 import { UserEvents } from "@/constants";
 import {
@@ -8,33 +6,25 @@ import {
   createChangeHand,
   createRemoveHand,
   createUpdateHands,
-  createSetName,
-  createSelectCard,
-  createRevealCards,
-  createResetVoting,
 } from "@/services/event-creators";
 import { peerManager } from "@/services/PeerManager";
 import { DataConnection } from "peerjs";
 import { useHands } from "@/services/hands";
+import type { EventPayload } from "@/shared/kernel";
+import {
+  useRemoveHand,
+  useAddHand,
+  useChangeHandValue,
+} from "@/application/actions";
 
-type Data =
-  | ReturnType<typeof createUpdateHands>
-  | ReturnType<typeof createAddUser>
-  | ReturnType<typeof createChangeHand>
-  | ReturnType<typeof createRemoveHand>
-  | ReturnType<typeof createRevealCards>
-  | ReturnType<typeof createResetVoting>
-  | ReturnType<typeof createSelectCard>
-  | ReturnType<typeof createSetName>;
+type Data = EventPayload;
 
-export function useHostRoom() {
-  const { roomId } = useParams();
-  const shouldAddPeerHanlders = useRef(true);
-  const { user } = useStore();
-  const { hands, addHand, removeHand, changeHandValue, resetHands } =
-    useHands();
+export function useHostPeers() {
+  const { removeHand } = useRemoveHand();
+  const { addHand } = useAddHand();
+  const { changeHandValue } = useChangeHandValue();
+  const { hands } = useHands();
   const mutableHands = useRef<Hand[]>([]);
-  const [isRevealed, setIsRevealed] = useState(false);
   mutableHands.current = hands;
 
   const handleConncetionOpen = useCallback((connection: DataConnection) => {
@@ -94,49 +84,12 @@ export function useHostRoom() {
     );
   }, []);
 
-  const hostRoom = useCallback(() => {
+  const setup = useCallback(() => {
     peerManager.onConnection(handleConncetion);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleSelectCard = useCallback(
-    (value: string | null) => {
-      const event = createChangeHand({
-        id: String(roomId),
-        name: String(user.name),
-        value,
-      });
-      peerManager.broadcast(event);
-      changeHandValue(user.id, value);
-    },
-    [changeHandValue, roomId, user]
-  );
-
-  const handleReveal = useCallback(() => {
-    const event = createRevealCards();
-    peerManager.broadcast(event);
-    setIsRevealed(true);
-  }, []);
-
-  const handleNewVoting = useCallback(() => {
-    const event = createResetVoting();
-    peerManager.broadcast(event);
-    resetHands();
-    setIsRevealed(false);
-  }, [resetHands]);
-
-  useEffect(() => {
-    if (shouldAddPeerHanlders.current) {
-      shouldAddPeerHanlders.current = false;
-      hostRoom();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return {
-    handleSelectCard,
-    handleReveal,
-    handleNewVoting,
-    isRevealed,
+    setup,
   };
 }

@@ -3,11 +3,14 @@ import { useCallback } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
-import { useCreateRoom, useForm } from "./CreateRoom.hooks";
+import { useCreateRoom } from "@/application/create-room";
+import { useCloseConnections } from "@/application/close-connections";
+import { useForm } from "../lib/form";
 
 export function CreateRoom() {
   const { createRoom } = useCreateRoom();
   const { name, handleNameChange } = useForm();
+  useCloseConnections();
 
   const handleSubmit = useCallback(
     (e: React.SyntheticEvent) => {

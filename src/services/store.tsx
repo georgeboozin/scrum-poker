@@ -1,6 +1,7 @@
 import { createContext, useState, useContext } from "react";
 import type { ReactNode } from "react";
 import { User } from "@/domain/user";
+import { StoreService } from "@/application/ports";
 
 function useUser() {
   const [user, setUser] = useState<User>({
@@ -12,9 +13,7 @@ function useUser() {
   return { user, updateUser: setUser };
 }
 
-export const StoreContext = createContext<ReturnType<typeof useUser> | null>(
-  null
-);
+export const StoreContext = createContext<StoreService | null>(null);
 
 type ProviderProps = {
   children?: ReactNode;

@@ -1,9 +1,14 @@
 import { Hand } from "@/domain/hand";
 
-const UP = [0, 1, 5, 7, 9];
-const DOWN = [4, 6, 8, 10];
-const LEFT = [2];
-const RIGHT = [3];
+// const UP = [0, 1, 5, 7, 9]; // [1,4,6,8]
+// const DOWN = [4, 6, 8, 10]; // [0,5,7,9]
+// const LEFT = [2]; // [2]
+// const RIGHT = [3]; // [3]
+
+const UP = [1, 4, 6, 8]; // [1,4,6,8]
+const DOWN = [0, 5, 7, 9]; // [0,5,7,9]
+const LEFT = [2]; // [2]
+const RIGHT = [3]; // [3]
 
 export function fillSeats(hands: Hand[]) {
   const top: Hand[] = [];

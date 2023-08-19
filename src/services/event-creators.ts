@@ -1,16 +1,19 @@
 import { Hand } from "@/domain/hand";
 import { HostEvents, UserEvents } from "@/constants";
+import type {
+  UpdateHands,
+  AddUser,
+  ChangeHand,
+  RemoveHand,
+  RevealCards,
+  ResetVoting,
+  SetName,
+  SelectCard,
+} from "@/shared/kernel";
 
 interface User {
   id: string;
   name: string;
-}
-
-interface UpdateHands {
-  event: HostEvents.UpdateHands;
-  payload: {
-    hands: Hand[];
-  };
 }
 
 export function createUpdateHands(hands: Hand[]): UpdateHands {
@@ -19,13 +22,6 @@ export function createUpdateHands(hands: Hand[]): UpdateHands {
     payload: {
       hands,
     },
-  };
-}
-
-interface AddUser {
-  event: HostEvents.AddUser;
-  payload: {
-    user: User;
   };
 }
 
@@ -38,26 +34,12 @@ export function createAddUser(user: User): AddUser {
   };
 }
 
-interface ChangeHand {
-  event: HostEvents.ChangeHand;
-  payload: {
-    hand: Hand;
-  };
-}
-
 export function createChangeHand(hand: Hand): ChangeHand {
   return {
     event: HostEvents.ChangeHand,
     payload: {
       hand,
     },
-  };
-}
-
-interface RemoveHand {
-  event: HostEvents.RemoveHand;
-  payload: {
-    handId: string;
   };
 }
 
@@ -70,18 +52,10 @@ export function createRemoveHand(handId: string): RemoveHand {
   };
 }
 
-interface RevealCards {
-  event: HostEvents.RevealCards;
-}
-
 export function createRevealCards(): RevealCards {
   return {
     event: HostEvents.RevealCards,
   };
-}
-
-interface ResetVoting {
-  event: HostEvents.ResetVoting;
 }
 
 export function createResetVoting(): ResetVoting {
@@ -90,23 +64,24 @@ export function createResetVoting(): ResetVoting {
   };
 }
 
-export function createSetName(name: string) {
+export function createSetName(name: string): SetName {
   return {
-    event: UserEvents.SetName as UserEvents.SetName,
+    event: UserEvents.SetName,
     payload: {
       name,
     },
   };
 }
 
-interface SelectCard {
+export function createSelectCard({
+  name,
+  value,
+}: {
   name: string;
   value: string | null;
-}
-
-export function createSelectCard({ name, value }: SelectCard) {
+}): SelectCard {
   return {
-    event: UserEvents.SelectCard as UserEvents.SelectCard,
+    event: UserEvents.SelectCard,
     payload: {
       name,
       value,

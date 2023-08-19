@@ -1,23 +1,38 @@
+import { useEffect, useRef } from "react";
 import Box from "@mui/material/Box";
 import { useHands } from "@/services/hands";
 import { Table } from "@/features/Table";
 import { Panel } from "@/features/Panel";
-import { useHostRoom } from "./HostRoom.hooks";
+import {
+  useHostSelectCard,
+  useHostRevealHands,
+  useHostResetVoting,
+} from "@/application/actions";
+import { useHostPeers } from "@/services/host-peers";
 
 export function HostRoom() {
-  const {
-    hands: [userHand, ...hands],
-  } = useHands();
-  const { handleSelectCard, handleReveal, handleNewVoting, isRevealed } =
-    useHostRoom();
+  const { hands, isRevealed } = useHands();
+  const { handleSelectCard } = useHostSelectCard();
+  const { revealHands } = useHostRevealHands();
+  const { resetVoting } = useHostResetVoting();
+  const { setup } = useHostPeers();
+
+  const shouldSetupPeer = useRef(true);
+
+  useEffect(() => {
+    if (shouldSetupPeer.current) {
+      shouldSetupPeer.current = false;
+      setup();
+    }
+  }, []);
 
   return (
     <Box>
       <Table
-        hands={[userHand, ...hands]}
+        hands={hands}
         isRevealed={isRevealed}
-        onRevealCards={handleReveal}
-        onNewVoting={handleNewVoting}
+        onRevealCards={revealHands}
+        onNewVoting={resetVoting}
       />
       <Box
         sx={{
@@ -30,7 +45,7 @@ export function HostRoom() {
         }}
       >
         <Panel
-          hands={[userHand, ...hands]}
+          hands={hands}
           isRevealed={isRevealed}
           onSelectCard={handleSelectCard}
         />
