@@ -1,7 +1,7 @@
+import type { Hand } from "@/shared/domain/hand";
 import { CardSelector } from "./CardSelector";
 import { VoteResult } from "./VoteResult";
 import { calcVotes } from "../lib/calc-votes";
-import { Hand } from "@/shared/domain/hand";
 
 interface Props {
   hands: Hand[];

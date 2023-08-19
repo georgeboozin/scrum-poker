@@ -1,13 +1,19 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Peer } from "peerjs";
+import type {
+  StoreService,
+  PeerManagerService,
+} from "@/shared/lib/use-cases/ports";
 import { useStore } from "@/shared/lib/services/store";
-import { PEER_JS_SERVER } from "@/constants";
-import { peerManager } from "@/shared/lib/services/PeerManager";
+import { PeerManager } from "@/shared/lib/services/PeerManager";
+import { PEER_JS_SERVER } from "@/shared/constants";
+
+const peerManager: PeerManagerService = PeerManager.getInstance();
 
 export function useCreateRoom() {
   const navigate = useNavigate();
-  const { updateUser } = useStore();
+  const { updateUser }: StoreService = useStore();
 
   const createRoom = useCallback(
     (name: string) => {

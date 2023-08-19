@@ -8,7 +8,7 @@ export function useAddHand() {
 
   const handleAddHand = useCallback(
     (newHand: Hand) => updateHands((prev) => addHand(prev, newHand)),
-    []
+    [updateHands]
   );
 
   return { addHand: handleAddHand };

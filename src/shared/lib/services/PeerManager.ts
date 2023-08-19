@@ -1,14 +1,23 @@
 import { DataConnection, Peer } from "peerjs";
 import { PeerManagerService } from "@/shared/lib/use-cases/ports";
 
-class PeerManager implements PeerManagerService {
+export class PeerManager implements PeerManagerService {
+  private static instance: PeerManager;
   private peer: Peer | null;
   private connections: {
     [key: string]: DataConnection;
   };
+
   constructor() {
     this.connections = {};
     this.peer = null;
+  }
+
+  static getInstance() {
+    if (!PeerManager.instance) {
+      PeerManager.instance = new PeerManager();
+    }
+    return PeerManager.instance;
   }
 
   public setPeer(peer: Peer) {
@@ -67,7 +76,7 @@ class PeerManager implements PeerManagerService {
       this.connections[connectionId].send(event);
       return;
     } else {
-      const [connection] = Object.values(peerManager.connections);
+      const [connection] = Object.values(this.connections);
       connection.send(event);
     }
   }
@@ -80,5 +89,3 @@ class PeerManager implements PeerManagerService {
     });
   }
 }
-
-export const peerManager = new PeerManager();

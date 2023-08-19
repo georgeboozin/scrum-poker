@@ -1,11 +1,16 @@
 import { useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { changeHandValue } from "@/shared/domain/hand";
+import { createUpdateHand } from "@/shared/lib/services/host/event-creator";
+import type {
+  HandsService,
+  PeerManagerService,
+} from "@/shared/lib/use-cases/ports";
 import { useStore } from "@/shared/lib/services/store";
-import { createChangeHand } from "@/shared/lib/services/event-creators";
-import { peerManager } from "@/shared/lib/services/PeerManager";
+import { PeerManager } from "@/shared/lib/services/PeerManager";
 import { useHands } from "@/shared/lib/services/hands";
-import { HandsService } from "@/shared/lib/use-cases/ports";
+
+const peerManager: PeerManagerService = PeerManager.getInstance();
 
 export function useSelectCard() {
   const { roomId } = useParams();
@@ -14,7 +19,7 @@ export function useSelectCard() {
 
   const handleSelectCard = useCallback(
     (value: string | null) => {
-      const event = createChangeHand({
+      const event = createUpdateHand({
         id: String(roomId),
         name: String(user.name),
         value,

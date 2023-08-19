@@ -1,5 +1,5 @@
 import { useCallback, useRef } from "react";
-import { Hand } from "@/shared/domain/hand";
+import type { Hand } from "@/shared/domain/hand";
 import { useHands } from "@/shared/lib/services/hands";
 import { HandsService } from "@/shared/lib/use-cases/ports";
 
@@ -8,9 +8,12 @@ export function useUpdateHands() {
   const mutableHands = useRef<Hand[]>([]);
   mutableHands.current = hands;
 
-  const handleUpdateHands = useCallback((newHands: Hand[]) => {
-    updateHands([...mutableHands.current, ...newHands]);
-  }, []);
+  const handleUpdateHands = useCallback(
+    (newHands: Hand[]) => {
+      updateHands([...mutableHands.current, ...newHands]);
+    },
+    [updateHands]
+  );
 
   return { updateHands: handleUpdateHands };
 }

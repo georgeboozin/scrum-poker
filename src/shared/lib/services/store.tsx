@@ -29,6 +29,7 @@ export function Provider({ children }: ProviderProps) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useStore() {
   const storeContext = useContext(StoreContext);
   if (!storeContext) {

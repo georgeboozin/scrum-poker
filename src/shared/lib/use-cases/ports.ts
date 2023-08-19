@@ -1,5 +1,5 @@
 import { DataConnection, Peer } from "peerjs";
-import { Hand } from "@/shared/domain/hand";
+import type { Hand } from "@/shared/domain/hand";
 import { User } from "@/shared/domain/user";
 
 export interface HandsService {
@@ -26,5 +26,5 @@ export interface PeerManagerService {
   closeConnections(): void;
   connect(id: string): void;
   send<T>(event: T, connectionId?: string): void;
-  broadcast<T>(event: T, exceptions: string[]): void;
+  broadcast<T>(event: T, exceptions?: string[]): void;
 }

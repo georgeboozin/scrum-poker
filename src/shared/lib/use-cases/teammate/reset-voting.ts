@@ -9,7 +9,7 @@ export function useResetVoting() {
   const handleResetVoting = useCallback(() => {
     updateHands((prev) => resetHands(prev));
     changeIsRevealed(false);
-  }, []);
+  }, [changeIsRevealed, updateHands]);
 
   return { resetVoting: handleResetVoting };
 }

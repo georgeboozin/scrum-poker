@@ -6,14 +6,14 @@ import { Panel } from "@/features/panel";
 import { useSelectCard } from "@/shared/lib/use-cases/host/select-card";
 import { useRevealHands } from "@/shared/lib/use-cases/host/reveal-hands";
 import { useResetVoting } from "@/shared/lib/use-cases/host/reset-voting";
-import { useHostPeers } from "@/shared/lib/services/host-peers";
+import { usePeer } from "@/shared/lib/services/host/peer";
 
 export function HostRoom() {
   const { hands, isRevealed } = useHands();
   const { handleSelectCard } = useSelectCard();
   const { revealHands } = useRevealHands();
   const { resetVoting } = useResetVoting();
-  const { setup } = useHostPeers();
+  const { setup } = usePeer();
 
   const shouldSetupPeer = useRef(true);
 
@@ -22,6 +22,7 @@ export function HostRoom() {
       shouldSetupPeer.current = false;
       setup();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

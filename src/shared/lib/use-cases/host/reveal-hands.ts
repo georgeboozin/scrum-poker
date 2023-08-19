@@ -1,17 +1,22 @@
 import { useCallback } from "react";
-import { createRevealCards } from "@/shared/lib/services/event-creators";
-import { peerManager } from "@/shared/lib/services/PeerManager";
+import { createRevealHands } from "@/shared/lib/services/host/event-creator";
+import type {
+  HandsService,
+  PeerManagerService,
+} from "@/shared/lib/use-cases/ports";
+import { PeerManager } from "@/shared/lib/services/PeerManager";
 import { useHands } from "@/shared/lib/services/hands";
-import { HandsService } from "@/shared/lib/use-cases/ports";
+
+const peerManager: PeerManagerService = PeerManager.getInstance();
 
 export function useRevealHands() {
   const { changeIsRevealed }: HandsService = useHands();
 
   const handleRevealHands = useCallback(() => {
-    const event = createRevealCards();
+    const event = createRevealHands();
     peerManager.broadcast(event);
     changeIsRevealed(true);
-  }, []);
+  }, [changeIsRevealed]);
 
   return { revealHands: handleRevealHands };
 }

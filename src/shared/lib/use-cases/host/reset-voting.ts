@@ -1,9 +1,14 @@
 import { useCallback } from "react";
 import { resetHands } from "@/shared/domain/hand";
-import { createResetVoting } from "@/shared/lib/services/event-creators";
-import { peerManager } from "@/shared/lib/services/PeerManager";
+import { createResetVoting } from "@/shared/lib/services/host/event-creator";
+import type {
+  HandsService,
+  PeerManagerService,
+} from "@/shared/lib/use-cases/ports";
 import { useHands } from "@/shared/lib/services/hands";
-import { HandsService } from "@/shared/lib/use-cases/ports";
+import { PeerManager } from "@/shared/lib/services/PeerManager";
+
+const peerManager: PeerManagerService = PeerManager.getInstance();
 
 export function useResetVoting() {
   const { changeIsRevealed, updateHands }: HandsService = useHands();

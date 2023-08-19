@@ -1,6 +1,6 @@
 import { createContext, useState, useContext } from "react";
 import type { ReactNode } from "react";
-import { Hand } from "@/shared/domain/hand";
+import type { Hand } from "@/shared/domain/hand";
 import { useStore } from "@/shared/lib/services/store";
 import { HandsService } from "@/shared/lib/use-cases/ports";
 
@@ -29,6 +29,7 @@ export function Provider({ children }: ProviderProps) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useHands() {
   const handsContext = useContext(HandsContext);
   if (!handsContext) {

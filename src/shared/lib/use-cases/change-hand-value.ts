@@ -9,7 +9,7 @@ export function useChangeHandValue() {
   const handleChangeHandValue = useCallback(
     (handId: string, value: string | null) =>
       updateHands((prev) => changeHandValue(prev, handId, value)),
-    []
+    [updateHands]
   );
 
   return { changeHandValue: handleChangeHandValue };

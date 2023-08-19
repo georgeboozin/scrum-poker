@@ -57,6 +57,6 @@ export function changeUserHandValue(
   }, [] as Hand[]);
 }
 
-export function getUserHand(hands: Hand[], userHandId: string) {
-  return hands.find((hand) => hand.id === userHandId);
+export function getUserHand(hands: Hand[], userId: string) {
+  return hands.find((hand) => hand.id === userId);
 }

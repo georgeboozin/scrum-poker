@@ -3,12 +3,12 @@ import Box from "@mui/material/Box";
 import { Table } from "@/features/table";
 import { Panel } from "@/features/panel";
 import { useHands } from "@/shared/lib/services/hands";
-import { useTeammatePeers } from "@/shared/lib/services/teammate-peers";
+import { usePeer } from "@/shared/lib/services/teammate/peer";
 import { useSelectCard } from "@/shared/lib/use-cases/teammate/select-card";
 
 export function TeammateRoom() {
   const { hands, isRevealed } = useHands();
-  const { setup } = useTeammatePeers();
+  const { setup } = usePeer();
   const { handleSelectCard } = useSelectCard();
   const shouldSetupPeer = useRef(true);
 
@@ -17,6 +17,7 @@ export function TeammateRoom() {
       shouldSetupPeer.current = false;
       setup();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

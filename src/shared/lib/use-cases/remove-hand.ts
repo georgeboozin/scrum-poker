@@ -6,9 +6,12 @@ import { HandsService } from "@/shared/lib/use-cases/ports";
 export function useRemoveHand() {
   const { updateHands }: HandsService = useHands();
 
-  const handleRemoveHand = useCallback((handId: string) => {
-    updateHands((prev) => removeHand(prev, handId));
-  }, []);
+  const handleRemoveHand = useCallback(
+    (handId: string) => {
+      updateHands((prev) => removeHand(prev, handId));
+    },
+    [updateHands]
+  );
 
   return { removeHand: handleRemoveHand };
 }

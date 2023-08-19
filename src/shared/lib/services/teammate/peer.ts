@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useStore } from "@/shared/lib/services/store";
-import { HostEvents } from "@/constants";
-import { createSetName } from "@/shared/lib/services/event-creators";
-import { peerManager } from "@/shared/lib/services/PeerManager";
+import { HostEvent } from "@/shared/kernel/host-events";
+import { createAddHand } from "@/shared/lib/services/teammate/event-creator";
+import { PeerManager } from "@/shared/lib/services/PeerManager";
 import { DataConnection } from "peerjs";
 import type { EventPayload } from "@/shared/kernel";
 import { useUpdateHands } from "@/shared/lib/use-cases/update-hands";
@@ -13,9 +13,9 @@ import { useChangeHandValue } from "@/shared/lib/use-cases/change-hand-value";
 import { useRevealHands } from "@/shared/lib/use-cases/teammate/reveal-hands";
 import { useResetVoting } from "@/shared/lib/use-cases/teammate/reset-voting";
 
-type Data = EventPayload;
+const peerManager = PeerManager.getInstance();
 
-export function useTeammatePeers() {
+export function usePeer() {
   const navigate = useNavigate();
   const { roomId } = useParams();
   const { user } = useStore();
@@ -26,39 +26,54 @@ export function useTeammatePeers() {
   const { revealHands } = useRevealHands();
   const { resetVoting } = useResetVoting();
 
-  const handleConnectionOpen = useCallback((connection: DataConnection) => {
-    const event = createSetName(String(user.name));
-    peerManager.send(event, connection.peer);
-  }, []);
+  const handleConnectionOpen = useCallback(
+    (connection: DataConnection) => {
+      const event = createAddHand({
+        name: String(user.name),
+      });
+      peerManager.send(event, connection.peer);
+    },
+    [user.name]
+  );
 
   const handleConnectionClose = useCallback(() => {
     navigate("/");
-  }, []);
+  }, [navigate]);
 
-  const handleConnectionData = useCallback((data: Data) => {
-    if (data.event === HostEvents.UpdateHands) {
-      updateHands(data.payload.hands);
-    }
+  const handleConnectionData = useCallback(
+    (data: EventPayload) => {
+      if (data.event === HostEvent.UpdateHands) {
+        updateHands(data.payload.hands);
+      }
 
-    if (data.event === HostEvents.AddUser) {
-      addHand(data.payload.user);
-    }
+      if (data.event === HostEvent.AddHand) {
+        addHand(data.payload.hand);
+      }
 
-    if (data.event === HostEvents.ChangeHand) {
-      changeHandValue(data.payload.hand.id, data.payload.hand.value ?? null);
-    }
+      if (data.event === HostEvent.UpdateHand) {
+        changeHandValue(data.payload.hand.id, data.payload.hand.value ?? null);
+      }
 
-    if (data.event === HostEvents.RevealCards) {
-      revealHands();
-    }
+      if (data.event === HostEvent.RevealHands) {
+        revealHands();
+      }
 
-    if (data.event === HostEvents.ResetVoting) {
-      resetVoting();
-    }
-    if (data.event === HostEvents.RemoveHand) {
-      removeHand(data.payload.handId);
-    }
-  }, []);
+      if (data.event === HostEvent.ResetVoting) {
+        resetVoting();
+      }
+      if (data.event === HostEvent.RemoveHand) {
+        removeHand(data.payload.handId);
+      }
+    },
+    [
+      addHand,
+      changeHandValue,
+      removeHand,
+      resetVoting,
+      revealHands,
+      updateHands,
+    ]
+  );
 
   const setup = useCallback(() => {
     if (roomId) {
@@ -71,7 +86,12 @@ export function useTeammatePeers() {
         peerManager.onConnectionData(connection.peer, handleConnectionData);
       }
     }
-  }, [roomId]);
+  }, [
+    handleConnectionClose,
+    handleConnectionData,
+    handleConnectionOpen,
+    roomId,
+  ]);
 
   return {
     setup,
