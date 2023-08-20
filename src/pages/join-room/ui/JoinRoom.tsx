@@ -2,11 +2,11 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import { useJoinRoom } from "@/shared/lib/use-cases/join-room";
-import { useForm } from "../lib/form";
+import { useLoginForm } from "@/shared/lib/login-form";
 
 export function JoinRoom() {
   const { joinRoom } = useJoinRoom();
-  const { values, handleNameChange, handleSubmit } = useForm();
+  const { values, handleNameChange, handleSubmit } = useLoginForm();
 
   return (
     <form onSubmit={handleSubmit(({ name }) => joinRoom(name))}>

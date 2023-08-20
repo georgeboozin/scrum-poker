@@ -12,11 +12,9 @@ import { Error } from "@/pages/error";
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />} errorElement={<Error />}>
-      <Route errorElement={<Error />}>
-        <Route index element={<CreateRoom />} />
-        <Route path="rooms/:roomId" element={<Room />} />
-        <Route path="rooms/:roomId/join" element={<JoinRoom />} />
-      </Route>
+      <Route index element={<CreateRoom />} />
+      <Route path="rooms/:roomId" element={<Room />} />
+      <Route path="rooms/:roomId/join" element={<JoinRoom />} />
     </Route>
   )
 );

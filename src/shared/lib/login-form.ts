@@ -4,7 +4,7 @@ interface Values {
   name: string;
 }
 
-export function useForm() {
+export function useLoginForm() {
   const [values, setValues] = useState<Values>({
     name: "",
   });
