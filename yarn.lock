@@ -1571,13 +1571,6 @@
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
   integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
 
-"@types/peerjs@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@types/peerjs/-/peerjs-1.1.0.tgz#822962d78b26dc43c113fac0a8bf653e12851487"
-  integrity sha512-dVocsfYFg5QQuUB9OAxfrSvz4br4pyX+7M61ZJSRiYtE3NdayShk1p1Y8b9TmCj724TwHskVraeF7wyPl0rYcg==
-  dependencies:
-    peerjs "*"
-
 "@types/prop-types@*", "@types/prop-types@^15.7.5":
   version "15.7.5"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.5.tgz#5f19d2b85a98e9558036f6a3cacc8819420f05cf"
@@ -3147,7 +3140,7 @@ peerjs-js-binarypack@1.0.1:
   resolved "https://registry.yarnpkg.com/peerjs-js-binarypack/-/peerjs-js-binarypack-1.0.1.tgz#80fa2b61c794a6b16d64253700405e476ada29be"
   integrity sha512-N6aeia3NhdpV7kiGxJV5xQiZZCVEEVjRz2T2C6UZQiBkHWHzUv/oWA4myQLcwBwO8LUoR1KWW5oStvwVesmfCg==
 
-peerjs@*, peerjs@^1.4.7:
+peerjs@^1.4.7:
   version "1.4.7"
   resolved "https://registry.yarnpkg.com/peerjs/-/peerjs-1.4.7.tgz#37db0cd06fb0c542664bd6b2f62e87c98d38fbad"
   integrity sha512-dWE2HIGvJO0Hm8lYHJiO/5OWl8xYtGcAuU08To1HMIfhh76ULzkCS3NIQO/PZm4noO1RhaGTkQaQ6sbAss6/Tg==
