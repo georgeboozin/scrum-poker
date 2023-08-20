@@ -1,4 +1,4 @@
-import { DataConnection, Peer } from "peerjs";
+import { DataConnection } from "peerjs";
 import type { Hand } from "@/shared/domain/hand";
 import { User } from "@/shared/domain/user";
 
@@ -16,7 +16,6 @@ export interface StoreService {
 }
 
 export interface PeerManagerService {
-  setPeer(peer: Peer): void;
   onOpen(callback: (id: string) => void): void;
   onError(callback: (error: Error) => void): void;
   onConnection(callback: (connection: DataConnection) => void): void;

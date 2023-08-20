@@ -1,6 +1,13 @@
 import { DataConnection, Peer } from "peerjs";
 import { PeerManagerService } from "@/shared/lib/use-cases/ports";
 
+const PEER_JS_SERVER = {
+  host: "0.peerjs.com",
+  port: 443,
+  path: "/",
+  debug: 3, // 0 - disable logs, 1 - only errors, 2 - errors and warnings, 3 - all logs
+};
+
 export class PeerManager implements PeerManagerService {
   private static instance: PeerManager;
   private peer: Peer | null;
@@ -20,11 +27,9 @@ export class PeerManager implements PeerManagerService {
     return PeerManager.instance;
   }
 
-  public setPeer(peer: Peer) {
-    this.peer = peer;
-  }
-
   public onOpen(callback: (id: string) => void) {
+    const peer = new Peer(PEER_JS_SERVER);
+    this.peer = peer;
     this.peer?.on("open", callback);
   }
 

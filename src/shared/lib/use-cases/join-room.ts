@@ -1,13 +1,11 @@
 import { useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Peer } from "peerjs";
 import type {
   StoreService,
   PeerManagerService,
 } from "@/shared/lib/use-cases/ports";
 import { useStore } from "@/shared/lib/services/store";
 import { PeerManager } from "@/shared/lib/services/PeerManager";
-import { PEER_JS_SERVER } from "@/shared/constants";
 
 const peerManager: PeerManagerService = PeerManager.getInstance();
 
@@ -18,8 +16,6 @@ export function useJoinRoom() {
 
   const handleJoinRoom = useCallback(
     (name: string) => {
-      const peer = new Peer(PEER_JS_SERVER);
-      peerManager.setPeer(peer);
       peerManager.onOpen((id) => {
         console.log("Participant registered", id);
         updateUser({
