@@ -17,7 +17,7 @@ export function useSelectCard() {
   const { hands, updateHands }: HandsService = useHands();
   const userHand = getUserHand(hands, user.id);
 
-  const handleSelectCard = useCallback(
+  const selectCard = useCallback(
     (value: string | null) => {
       const event = createUpdateHand({ name: String(user.name), value });
       peerManager.send(event);
@@ -26,5 +26,5 @@ export function useSelectCard() {
     [updateHands, user.name, userHand?.id]
   );
 
-  return { handleSelectCard };
+  return { selectCard };
 }

@@ -5,10 +5,10 @@ import { HandsService } from "@/shared/lib/use-cases/ports";
 export function useRevealHands() {
   const { changeIsRevealed }: HandsService = useHands();
 
-  const handleRevealHands = useCallback(
+  const revealHands = useCallback(
     () => changeIsRevealed(true),
     [changeIsRevealed]
   );
 
-  return { revealHands: handleRevealHands };
+  return { revealHands };
 }

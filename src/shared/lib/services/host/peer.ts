@@ -7,9 +7,9 @@ import { useAddHand } from "@/shared/lib/use-cases/add-hand";
 import { useRemoveHand } from "@/shared/lib/use-cases/remove-hand";
 import { useChangeHandValue } from "@/shared/lib/use-cases/change-hand-value";
 import { useSendHands } from "@/shared/lib/use-cases/host/send-hands";
-import { useSendRemoveHand } from "@/shared/lib/use-cases/host/send-remove-hand";
-import { useSendAddHand } from "@/shared/lib/use-cases/host/send-add-hand";
-import { useSendUpdateHand } from "@/shared/lib/use-cases/host/send-update-hand";
+import { useSendRemovedHand } from "@/shared/lib/use-cases/host/send-removed-hand";
+import { useSendNewHand } from "@/shared/lib/use-cases/host/send-new-hand";
+import { useSendUpdatedHand } from "@/shared/lib/use-cases/host/send-updated-hand";
 
 const peerManager = PeerManager.getInstance();
 
@@ -18,9 +18,9 @@ export function usePeer() {
   const { addHand } = useAddHand();
   const { changeHandValue } = useChangeHandValue();
   const { sendHands } = useSendHands();
-  const { sendRemoveHand } = useSendRemoveHand();
-  const { sendAddHand } = useSendAddHand();
-  const { sendUpdateHand } = useSendUpdateHand();
+  const { sendRemovedHand } = useSendRemovedHand();
+  const { sendNewHand } = useSendNewHand();
+  const { sendUpdatedHand } = useSendUpdatedHand();
 
   const handleConncetionOpen = useCallback(
     (connection: DataConnection) => {
@@ -33,9 +33,9 @@ export function usePeer() {
     (connection: DataConnection) => {
       const id = connection.peer;
       removeHand(id);
-      sendRemoveHand(id);
+      sendRemovedHand(id);
     },
-    [removeHand, sendRemoveHand]
+    [removeHand, sendRemovedHand]
   );
 
   const handleConncetionData = useCallback(
@@ -47,7 +47,7 @@ export function usePeer() {
           name: String(data.payload.hand.name),
         };
         addHand(newHand);
-        sendAddHand(newHand, id);
+        sendNewHand(newHand, id);
       }
       if (data.event === TeammateEvent.UpdateHand) {
         const id = connection.peer;
@@ -58,10 +58,10 @@ export function usePeer() {
           value,
         };
         changeHandValue(id, value ?? null);
-        sendUpdateHand(hand, id);
+        sendUpdatedHand(hand, id);
       }
     },
-    [addHand, changeHandValue, sendAddHand, sendUpdateHand]
+    [addHand, changeHandValue, sendNewHand, sendUpdatedHand]
   );
 
   const handleConncetion = useCallback(

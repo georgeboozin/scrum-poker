@@ -5,11 +5,11 @@ import { PeerManager } from "@/shared/lib/services/PeerManager";
 
 const peerManager: PeerManagerService = PeerManager.getInstance();
 
-export function useSendRemoveHand() {
-  const handleSendRemoveHand = useCallback((connectionId: string) => {
+export function useSendRemovedHand() {
+  const sendRemovedHand = useCallback((connectionId: string) => {
     const event = createRemoveHand(connectionId);
     peerManager.broadcast(event, [connectionId]);
   }, []);
 
-  return { sendRemoveHand: handleSendRemoveHand };
+  return { sendRemovedHand };
 }

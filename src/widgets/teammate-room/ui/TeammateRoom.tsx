@@ -9,7 +9,7 @@ import { useSelectCard } from "@/shared/lib/use-cases/teammate/select-card";
 export function TeammateRoom() {
   const { hands, isRevealed } = useHands();
   const { setup } = usePeer();
-  const { handleSelectCard } = useSelectCard();
+  const { selectCard } = useSelectCard();
   const shouldSetupPeer = useRef(true);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export function TeammateRoom() {
         <Panel
           hands={hands}
           isRevealed={isRevealed}
-          onSelectCard={handleSelectCard}
+          onSelectCard={selectCard}
         />
       </Box>
     </Box>

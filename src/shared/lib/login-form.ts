@@ -1,8 +1,10 @@
 import { useState, useCallback } from "react";
 
-interface Values {
+type Values = {
   name: string;
-}
+};
+
+type Callback = (values: Values) => void;
 
 export function useLoginForm() {
   const [values, setValues] = useState<Values>({
@@ -18,7 +20,7 @@ export function useLoginForm() {
   );
 
   const handleSubmit = useCallback(
-    (callback: (values: Values) => void) => (e: React.SyntheticEvent) => {
+    (callback: Callback) => (e: React.SyntheticEvent) => {
       e.preventDefault();
       callback(values);
     },

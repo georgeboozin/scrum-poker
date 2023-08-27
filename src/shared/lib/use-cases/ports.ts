@@ -1,18 +1,18 @@
-import { DataConnection } from "peerjs";
+import type { DataConnection } from "peerjs";
+import type { User } from "@/shared/domain/user";
 import type { Hand } from "@/shared/domain/hand";
-import { User } from "@/shared/domain/user";
+
+export interface StoreService {
+  user: User;
+  updateUser: (user: User) => void;
+}
 
 export interface HandsService {
   hands: Hand[];
   isRevealed: boolean;
   updateHands(hands: Hand[]): void;
   updateHands(callback: (prev: Hand[]) => Hand[]): void;
-  changeIsRevealed: (isRevealed: boolean) => void;
-}
-
-export interface StoreService {
-  user: User;
-  updateUser: (user: User) => void;
+  changeIsRevealed(isRevealed: boolean): void;
 }
 
 export interface PeerManagerService {

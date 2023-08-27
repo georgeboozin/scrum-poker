@@ -10,7 +10,7 @@ import { usePeer } from "@/shared/lib/services/host/peer";
 
 export function HostRoom() {
   const { hands, isRevealed } = useHands();
-  const { handleSelectCard } = useSelectCard();
+  const { selectCard } = useSelectCard();
   const { revealHands } = useRevealHands();
   const { resetVoting } = useResetVoting();
   const { setup } = usePeer();
@@ -46,7 +46,7 @@ export function HostRoom() {
         <Panel
           hands={hands}
           isRevealed={isRevealed}
-          onSelectCard={handleSelectCard}
+          onSelectCard={selectCard}
         />
       </Box>
     </Box>

@@ -6,10 +6,10 @@ import { HandsService } from "@/shared/lib/use-cases/ports";
 export function useResetVoting() {
   const { changeIsRevealed, updateHands }: HandsService = useHands();
 
-  const handleResetVoting = useCallback(() => {
+  const resetVoting = useCallback(() => {
     updateHands((prev) => resetHands(prev));
     changeIsRevealed(false);
   }, [changeIsRevealed, updateHands]);
 
-  return { resetVoting: handleResetVoting };
+  return { resetVoting };
 }

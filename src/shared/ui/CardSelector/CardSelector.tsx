@@ -1,7 +1,21 @@
 import Box from "@mui/material/Box";
 import { SxProps } from "@mui/material";
 import { Card } from "@/shared/ui/Card";
-import { CARDS_SET } from "../lib/card-set";
+
+const CARDS_SET = [
+  "0",
+  "1",
+  "2",
+  "3",
+  "5",
+  "8",
+  "13",
+  "21",
+  "34",
+  "55",
+  "89",
+  "?",
+];
 
 interface Props {
   cards?: string[];

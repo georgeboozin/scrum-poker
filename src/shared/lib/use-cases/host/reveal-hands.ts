@@ -12,11 +12,11 @@ const peerManager: PeerManagerService = PeerManager.getInstance();
 export function useRevealHands() {
   const { changeIsRevealed }: HandsService = useHands();
 
-  const handleRevealHands = useCallback(() => {
+  const revealHands = useCallback(() => {
     const event = createRevealHands();
     peerManager.broadcast(event);
     changeIsRevealed(true);
   }, [changeIsRevealed]);
 
-  return { revealHands: handleRevealHands };
+  return { revealHands };
 }

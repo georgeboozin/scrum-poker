@@ -6,14 +6,11 @@ import { createUpdateHand } from "@/shared/lib/services/host/event-creator";
 
 const peerManager: PeerManagerService = PeerManager.getInstance();
 
-export function useSendUpdateHand() {
-  const handleSendUpdateHand = useCallback(
-    (hand: Hand, connectionId: string) => {
-      const event = createUpdateHand(hand);
-      peerManager.broadcast(event, [connectionId]);
-    },
-    []
-  );
+export function useSendUpdatedHand() {
+  const sendUpdatedHand = useCallback((hand: Hand, connectionId: string) => {
+    const event = createUpdateHand(hand);
+    peerManager.broadcast(event, [connectionId]);
+  }, []);
 
-  return { sendUpdateHand: handleSendUpdateHand };
+  return { sendUpdatedHand };
 }

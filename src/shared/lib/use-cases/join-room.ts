@@ -1,3 +1,4 @@
+import { JoinRoom } from "@/pages/join-room";
 import { useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import type {
@@ -14,10 +15,10 @@ export function useJoinRoom() {
   const navigate = useNavigate();
   const { roomId } = useParams();
 
-  const handleJoinRoom = useCallback(
+  const joinRoom = useCallback(
     (name: string) => {
       peerManager.onOpen((id) => {
-        console.log("Participant registered", id);
+        console.log("Teammate registered", id);
         updateUser({
           id,
           name,
@@ -29,5 +30,5 @@ export function useJoinRoom() {
     [navigate, roomId, updateUser]
   );
 
-  return { joinRoom: handleJoinRoom };
+  return { joinRoom };
 }

@@ -38,25 +38,6 @@ export function resetHands(hands: Hand[]) {
   return hands.map((hand) => ({ ...hand, value: null }));
 }
 
-export function changeUserHandValue(
-  hands: Hand[],
-  handId: string,
-  value: string | null
-) {
-  return hands.reduce((acc, hand) => {
-    if (hand.id === handId) {
-      const userHand = {
-        ...hand,
-        value,
-      };
-      acc.push(userHand);
-    } else {
-      acc.push(hand);
-    }
-    return acc;
-  }, [] as Hand[]);
-}
-
 export function getUserHand(hands: Hand[], userId: string) {
   return hands.find((hand) => hand.id === userId);
 }

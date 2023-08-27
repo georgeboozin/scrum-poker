@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { Outlet, Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -9,7 +10,6 @@ import Snackbar from "@mui/material/Snackbar";
 import { useNotification } from "../lib/notification";
 import { useCopyLink } from "../lib/copy-link";
 import { useMatchPage } from "../lib/match-page";
-import { useCallback } from "react";
 
 export function Layout() {
   const { notification, handleCloseNotification, updateNotification } =
@@ -33,7 +33,7 @@ export function Layout() {
 
   return (
     <>
-      <AppBar position="static" sx={{ marginBottom: 4 }}>
+      <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar
             disableGutters
@@ -61,7 +61,7 @@ export function Layout() {
           </Toolbar>
         </Container>
       </AppBar>
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" sx={{ mt: 4 }}>
         <Outlet />
       </Container>
       <Snackbar

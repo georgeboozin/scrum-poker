@@ -22,7 +22,7 @@ export function JoinRoom() {
           />
         </Grid>
         <Grid item xs={12}>
-          <Button type="submit" variant="contained" size="large" fullWidth>
+          <Button fullWidth type="submit" variant="contained" size="large">
             Join Room
           </Button>
         </Grid>

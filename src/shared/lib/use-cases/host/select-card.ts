@@ -17,7 +17,7 @@ export function useSelectCard() {
   const { user } = useStore();
   const { updateHands }: HandsService = useHands();
 
-  const handleSelectCard = useCallback(
+  const selectCard = useCallback(
     (value: string | null) => {
       const event = createUpdateHand({
         id: String(roomId),
@@ -30,5 +30,5 @@ export function useSelectCard() {
     [updateHands, roomId, user]
   );
 
-  return { handleSelectCard };
+  return { selectCard };
 }

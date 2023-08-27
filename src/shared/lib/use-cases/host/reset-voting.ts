@@ -13,12 +13,12 @@ const peerManager: PeerManagerService = PeerManager.getInstance();
 export function useResetVoting() {
   const { changeIsRevealed, updateHands }: HandsService = useHands();
 
-  const handleResetVoting = useCallback(() => {
+  const resetVoting = useCallback(() => {
     const event = createResetVoting();
     peerManager.broadcast(event);
     updateHands((prev) => resetHands(prev));
     changeIsRevealed(false);
   }, [updateHands, changeIsRevealed]);
 
-  return { resetVoting: handleResetVoting };
+  return { resetVoting };
 }

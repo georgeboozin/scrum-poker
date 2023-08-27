@@ -15,7 +15,7 @@ export function useSendHands() {
   const mutableHands = useRef<Hand[]>([]);
   mutableHands.current = hands;
 
-  const handleSendHands = useCallback((connectionId: string) => {
+  const sendHands = useCallback((connectionId: string) => {
     const newHands = mutableHands.current;
     if (newHands.length !== 0) {
       const event = createUpdateHands(newHands);
@@ -23,5 +23,5 @@ export function useSendHands() {
     }
   }, []);
 
-  return { sendHands: handleSendHands };
+  return { sendHands };
 }
