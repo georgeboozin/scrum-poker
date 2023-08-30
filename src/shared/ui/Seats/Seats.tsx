@@ -1,18 +1,14 @@
 import Box from "@mui/material/Box";
 import { SxProps } from "@mui/material";
-import { Hand } from "@/shared/ui/Hand";
+import { Children, ReactElement, cloneElement } from "react";
 
 interface Props {
-  hands: {
-    name: string;
-    value?: string | null;
-    isCurrentUser?: boolean;
-  }[];
   isRevealed: boolean;
   sx?: SxProps;
+  children: ReactElement[];
 }
 
-export function Seats({ hands, isRevealed, sx }: Props) {
+export function Seats({ isRevealed, sx, children }: Props) {
   return (
     <Box
       sx={{
@@ -21,15 +17,9 @@ export function Seats({ hands, isRevealed, sx }: Props) {
         justifyContent: "space-around",
       }}
     >
-      {hands.map(({ name, value, isCurrentUser }) => (
-        <Hand
-          key={name}
-          name={name}
-          value={value}
-          isCurrentUser={isCurrentUser}
-          isRevealed={isRevealed}
-        />
-      ))}
+      {Children.map(children, (child) =>
+        cloneElement(child, { ...child.props, isRevealed })
+      )}
     </Box>
   );
 }

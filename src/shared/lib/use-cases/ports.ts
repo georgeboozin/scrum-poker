@@ -19,11 +19,11 @@ export interface PeerManagerService {
   onOpen(callback: (id: string) => void): void;
   onError(callback: (error: Error) => void): void;
   onConnection(callback: (connection: DataConnection) => void): void;
-  onConnectionData<T>(peerId: string, callback: (data: T) => void): void;
   onConnectionOpen(peerId: string, callback: () => void): void;
+  onConnectionData<T>(peerId: string, callback: (data: T) => void): void;
   onConnectionClose(peerId: string, callback: () => void): void;
-  closeConnections(): void;
   connect(id: string): void;
+  closeConnections(): void;
   send<T>(event: T, connectionId?: string): void;
   broadcast<T>(event: T, exceptions?: string[]): void;
 }

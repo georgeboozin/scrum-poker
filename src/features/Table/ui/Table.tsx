@@ -1,13 +1,14 @@
 import Box from "@mui/material/Box";
 import { useStore } from "@/shared/lib/services/store";
-import { Table as SharedTable } from "@/shared/ui/Table";
+import { Hand } from "@/shared/ui/Hand";
 import { Seats } from "@/shared/ui/Seats";
-import { Hand, getUserHand } from "@/shared/domain/hand";
+import { Table as SharedTable } from "@/shared/ui/Table";
+import { Hand as HandType, getUserHand } from "@/shared/domain/hand";
 import { fillSeats } from "../lib/fill-seats";
 import { mapHandDTO } from "../lib/map-hand-dto";
 
 interface Props {
-  hands: Hand[];
+  hands: HandType[];
   isRevealed: boolean;
   onRevealCards?: () => void;
   onNewVoting?: () => void;
@@ -29,14 +30,17 @@ export function Table({
   return (
     <Box>
       <Seats
-        hands={top}
         isRevealed={isRevealed}
         sx={{
           width: "80%",
           mx: "auto",
           mt: 2,
         }}
-      />
+      >
+        {top.map((hand) => (
+          <Hand key={hand.id} {...hand} />
+        ))}
+      </Seats>
       <Box
         sx={{
           display: "grid",
@@ -47,12 +51,15 @@ export function Table({
         }}
       >
         <Seats
-          hands={left}
           isRevealed={isRevealed}
           sx={{
             mr: 1,
           }}
-        />
+        >
+          {left.map((hand) => (
+            <Hand key={hand.id} {...hand} />
+          ))}
+        </Seats>
         <SharedTable
           isSelected={isSelected}
           isHost={Boolean(isHost)}
@@ -62,21 +69,27 @@ export function Table({
         />
         <Seats
           isRevealed={isRevealed}
-          hands={right}
           sx={{
             ml: 1,
           }}
-        />
+        >
+          {right.map((hand) => (
+            <Hand key={hand.id} {...hand} />
+          ))}
+        </Seats>
       </Box>
       <Seats
-        hands={bottom}
         isRevealed={isRevealed}
         sx={{
           width: "80%",
           mx: "auto",
           mt: 2,
         }}
-      />
+      >
+        {bottom.map((hand) => (
+          <Hand key={hand.id} {...hand} />
+        ))}
+      </Seats>
     </Box>
   );
 }

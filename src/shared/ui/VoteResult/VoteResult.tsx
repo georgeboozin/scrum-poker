@@ -1,27 +1,8 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Card } from "@/shared/ui/Card";
-
-function calcAverage(votes: string[]) {
-  const formattedVotes = votes
-    .filter((value) => value !== "?")
-    .map((value) => Number(value));
-
-  const average =
-    formattedVotes.reduce((acc, cur) => acc + cur, 0) / formattedVotes.length;
-  return Math.round(average * 100) / 100;
-}
-
-function groupVotes(votes: string[]) {
-  return votes.reduce((acc, cur) => {
-    if (acc[cur]) {
-      acc[cur]++;
-    } else {
-      acc[cur] = 1;
-    }
-    return acc;
-  }, {} as { [key: string]: number });
-}
+import { groupVotes } from "./lib/group-votes";
+import { calcAverage } from "./lib/calc-average";
 
 interface Props {
   votes: string[];

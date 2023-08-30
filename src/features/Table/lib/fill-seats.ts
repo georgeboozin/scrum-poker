@@ -1,9 +1,9 @@
 import type { Hand } from "@/shared/domain/hand";
 
-const UP = [1, 4, 6, 8];
-const DOWN = [0, 5, 7, 9];
-const LEFT = [2];
+const TOP = [1, 4, 6, 8];
 const RIGHT = [3];
+const BOTTOM = [0, 5, 7, 9];
+const LEFT = [2];
 
 export function fillSeats(hands: Hand[]) {
   const top: Hand[] = [];
@@ -12,13 +12,13 @@ export function fillSeats(hands: Hand[]) {
   const left: Hand[] = [];
 
   hands.forEach((hand, index) => {
-    if (UP.includes(index)) {
+    if (TOP.includes(index)) {
       top.push(hand);
     }
     if (RIGHT.includes(index)) {
       right.push(hand);
     }
-    if (DOWN.includes(index)) {
+    if (BOTTOM.includes(index)) {
       bottom.push(hand);
     }
     if (LEFT.includes(index)) {

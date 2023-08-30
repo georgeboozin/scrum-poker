@@ -15,7 +15,7 @@ import { useResetVoting } from "@/shared/lib/use-cases/teammate/reset-voting";
 
 const peerManager = PeerManager.getInstance();
 
-export function usePeer() {
+export function usePeerInstaller() {
   const navigate = useNavigate();
   const { roomId } = useParams();
   const { user } = useStore();
@@ -75,7 +75,7 @@ export function usePeer() {
     ]
   );
 
-  const setup = useCallback(() => {
+  const install = useCallback(() => {
     if (roomId) {
       const connection = peerManager.connect(roomId);
       if (connection) {
@@ -94,6 +94,6 @@ export function usePeer() {
   ]);
 
   return {
-    setup,
+    install,
   };
 }

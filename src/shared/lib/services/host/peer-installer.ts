@@ -13,7 +13,7 @@ import { useSendUpdatedHand } from "@/shared/lib/use-cases/host/send-updated-han
 
 const peerManager = PeerManager.getInstance();
 
-export function usePeer() {
+export function usePeerInstaller() {
   const { removeHand } = useRemoveHand();
   const { addHand } = useAddHand();
   const { changeHandValue } = useChangeHandValue();
@@ -79,11 +79,11 @@ export function usePeer() {
     [handleConncetionClose, handleConncetionData, handleConncetionOpen]
   );
 
-  const setup = useCallback(() => {
+  const install = useCallback(() => {
     peerManager.onConnection(handleConncetion);
   }, [handleConncetion]);
 
   return {
-    setup,
+    install,
   };
 }

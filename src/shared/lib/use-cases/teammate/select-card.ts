@@ -13,17 +13,34 @@ import { useHands } from "@/shared/lib/services/hands";
 const peerManager: PeerManagerService = PeerManager.getInstance();
 
 export function useSelectCard() {
-  const { user }: StoreService = useStore();
-  const { hands, updateHands }: HandsService = useHands();
-  const userHand = getUserHand(hands, user.id);
+  const {
+    user: { id, name },
+  }: StoreService = useStore();
+  const { updateHands }: HandsService = useHands();
 
   const selectCard = useCallback(
     (value: string | null) => {
-      const event = createUpdateHand({ name: String(user.name), value });
+      const event = createUpdateHand({ name, value });
       peerManager.send(event);
-      updateHands((prev) => changeHandValue(prev, String(userHand?.id), value));
+      updateHands((prev) => changeHandValue(prev, id, value));
     },
-    [updateHands, user.name, userHand?.id]
+    [updateHands, name, id]
+  );
+
+  return { selectCard };
+}
+
+export function useSelectCard1() {
+  const {
+    user: { id },
+  }: StoreService = useStore();
+  const { updateHands }: HandsService = useHands();
+
+  const selectCard = useCallback(
+    (value: string | null) => {
+      updateHands((prev) => changeHandValue(prev, id, value));
+    },
+    [updateHands, id]
   );
 
   return { selectCard };

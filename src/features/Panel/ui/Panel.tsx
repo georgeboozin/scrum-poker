@@ -1,7 +1,9 @@
 import type { Hand } from "@/shared/domain/hand";
+import { getUserHand } from "@/shared/domain/hand";
 import { CardSelector } from "@/shared/ui/CardSelector/CardSelector";
 import { VoteResult } from "@/shared/ui/VoteResult/VoteResult";
-import { calcVotes } from "../lib/calc-votes";
+import { filterVotes } from "../lib/filter-votes";
+import { useStore } from "@/shared/lib/services/store";
 
 interface Props {
   hands: Hand[];
@@ -9,13 +11,13 @@ interface Props {
   onSelectCard: (value: string | null) => void;
 }
 
-export function Panel({
-  hands: [userHand, ...hands],
-  isRevealed,
-  onSelectCard,
-}: Props) {
+export function Panel({ hands, isRevealed, onSelectCard }: Props) {
+  const {
+    user: { id },
+  } = useStore();
+  const votes = filterVotes(hands);
+  const userHand = getUserHand(hands, id);
   const value = userHand?.value;
-  const votes = calcVotes([userHand, ...hands]);
 
   return (
     <>
